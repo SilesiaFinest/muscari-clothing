@@ -1,5 +1,8 @@
 React
-SASS
+node-SASS
+
+code:
+prettier
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
