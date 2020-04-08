@@ -1,11 +1,17 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+// using higher order component withRouter - it's wrapped around MenuItem in export default, now this component can access
+// this.props.history, location and match (available only for the first-child of Router component) - avoiding props drilling
 
 import "./menu-item.styles.scss";
 
-const MenuItem = ({ title, imageUrl, size }) => (
+const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => (
   <div
     // if there's size value('large') added on section item it's being passed by props and added as a className (and styled in css)
     className={`${size} menu-item`}
+    // adding onClick which will redirect us by taking current url and adding target url to it making this routing 'aware'
+    // of where it is and where to point (thanks to withRouter HOC)
+    onClick={() => history.push(`${match.url}${linkUrl}`)}
   >
     <div
       className="background-image"
@@ -23,4 +29,4 @@ const MenuItem = ({ title, imageUrl, size }) => (
   </div>
 );
 
-export default MenuItem;
+export default withRouter(MenuItem);
