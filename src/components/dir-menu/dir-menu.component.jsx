@@ -50,7 +50,7 @@ class DirMenu extends Component {
     return (
       <div className="dir-menu">
         {this.state.sections.map(({ id, ...otherSectionProps }) => (
-          // destructuring parameters and using ES6 spread operator to avoid passing key:values as MenuItem props like title={title}, size={size} etc.
+          // destructuring parameters and using ES6 spread operator to avoid passing key:values as MenuItem props like title={title}, size={size}
           <MenuItem key={id} {...otherSectionProps} />
         ))}
       </div>
