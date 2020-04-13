@@ -1,6 +1,7 @@
 React
 React-Router-DOM
 node-SASS
+Google Firebase
 
 code:
 prettier
