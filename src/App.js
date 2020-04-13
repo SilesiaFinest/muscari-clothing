@@ -35,10 +35,11 @@ class App extends Component {
     this.unsubscribeFromAuth();
   }
 
+  // passing this.state.currentUser as props to the Header for Sign In/Out functionality
   render() {
     return (
       <div>
-        <Header />
+        <Header currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
