@@ -39,6 +39,7 @@ class App extends Component {
               ...snapShot.data(),
             },
           });
+          console.log(this.state);
         });
       } else {
         // if userAuth returned null we set state to null
