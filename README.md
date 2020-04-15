@@ -1,5 +1,6 @@
 React
 React-Router-DOM
+React-Redux
 node-SASS
 Google Firebase
 
