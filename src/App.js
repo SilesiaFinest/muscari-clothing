@@ -14,8 +14,8 @@ class App extends Component {
     super();
 
     this.state = {
-      currentUser: null,
-    };
+
+
   }
 
   // setting new method so it can be called again for Unmount
