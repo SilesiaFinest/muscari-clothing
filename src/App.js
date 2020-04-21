@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import "./App.css";
@@ -49,7 +49,10 @@ class App extends Component {
     this.unsubscribeFromAuth();
   }
 
-  // passing this.state.currentUser as props to the Header for Sign In/Out functionality
+  // in 3rd Route we determine if currentUser is signed in. Instead of component='' use render=''
+  // it has a function with ternary operator to Redirect back to homepage if user is already signed
+  // if not render <signInAndUpPage>
+
   render() {
     return (
       <div>
@@ -57,20 +60,30 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
-          <Route path="/signin" component={SignInAndUpPage} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? <Redirect to="/" /> : <SignInAndUpPage />
+            }
+          />
         </Switch>
       </div>
     );
   }
 }
 
+//destructure userReducer from state(rootReducer). As a result we receive currentUser prop
+// for this component to use and it is equal to user.currentUser value
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
 // mapDispatchToProps gets dispatch argument and returns an object with new function that calls dispatch()
-// inside itself which is passing result of an acrion creator to every reducer. We invoke action with
-// user prop to forward argument to action creator and get the object back (with .payload user)
+// inside itself which is passing result of an action creator to every reducer. (user) is being passed
+// to action creator ( as .payload = user). Key is a new name for action, value is imported action
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-// first argument of connect is mapStateToProps, 2nd is mapDispatchToProps
-// as we don't need to pass currentUser into App.js anymore 1st argument is null
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
