@@ -2,10 +2,17 @@ import React from "react";
 
 import "./custom-button.styles.scss";
 
-// conditionally render classNames
-const CustomButton = ({ children, isGoogleSignIn, ...otherProps }) => (
+// conditionally render classNames because of props passed in
+const CustomButton = ({
+  children,
+  inverted,
+  isGoogleSignIn,
+  ...otherProps
+}) => (
   <button
-    className={`${isGoogleSignIn ? "google-sign-in" : ""} custom-button`}
+    className={`${inverted ? "inverted" : ""} ${
+      isGoogleSignIn ? "google-sign-in" : ""
+    } custom-button`}
     {...otherProps}
   >
     {children}
