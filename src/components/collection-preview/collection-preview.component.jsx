@@ -12,9 +12,9 @@ const CollectionPreview = ({ title, items }) => (
     <div className="preview">
       {items
         .filter((item, idx) => idx < 4)
-        .map(({ id, ...otherItemProps }) => (
-          // destructuring parameters and using ES6 spread operator to avoid passing key:values as MenuItem props like title={title}, size={size}
-          <CollectionItem key={id} {...otherItemProps} />
+        .map((item) => (
+          // except for id, we are passsing whole item object - this is needed for addItem action
+          <CollectionItem key={item.id} item={item} />
         ))}
     </div>
   </div>

@@ -14,7 +14,7 @@ class ShopPage extends Component {
   }
 
   render() {
-    // destructuring parameters and using ES6 spread operator in collections.map
+    // destructuring parameters and using ES6 spread operator in collections.map and using ...
     // to avoid passing key:values as CollectionPreview props like title={title}, routeName={routeName} etc.
     const { collections } = this.state;
     return (
