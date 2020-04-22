@@ -10,7 +10,8 @@ import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
 import "./header.styles.scss";
 
-const Header = ({ currentUser }) => (
+// props passed bym mapStateToProps
+const Header = ({ currentUser, hidden }) => (
   <div className="header">
     <Link className="logo-container" to="/">
       <Logo className="logo" />
@@ -33,13 +34,21 @@ const Header = ({ currentUser }) => (
       )}
       <CartIcon />
     </div>
-    <CartDropdown />
+    {
+      // selectively rendering CartDropdown
+      hidden ? null : <CartDropdown />
+    }
   </div>
 );
 
-const mapStateToProps = (state) => ({
-  // mapStateToProps gets needed state(state = rootReducer) from rootReducer/userReducer/state
-  currentUser: state.user.currentUser,
+// mapStateToProps gets needed state(state prop = rootReducer) from rootReducer/xxxxReducer/state
+// using advanced destructuring to access nested values to get arguments e.g.
+// (state.user.currentUser) === ({user: {currentUser}})
+// and in function body we can replace: currentUser: state.user.currentUser with just: currentUser
+
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 });
 
 // connect is a HOF, mSTP gives the component props needed
