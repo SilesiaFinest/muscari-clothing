@@ -19,11 +19,11 @@
     scrollbar-color: rgba(80, 80, 80, 0) rgba(0, 0, 0, 0); //for mozilla
     scrollbar-width: thin; // scrollbar style for mozilla
     overflow: auto;
-    color: rgba(80, 80, 80, 0);
+    color: rgba(80, 80, 80, 1);
     transition: all 0.3s;
 
     &::-webkit-scrollbar {
-      width: 14px;
+      width: 10px;
     }
 
     &::-webkit-scrollbar-thumb {
@@ -46,7 +46,7 @@
 
   .cart-items:hover {
     scrollbar-color: rgba(80, 80, 80, 0.4) rgba(0, 0, 0, 0); //for mozilla
-    color: rgba(80, 80, 80, 0.45);
+    color: rgba(80, 80, 80, 0.75);
   }
 
   button {
