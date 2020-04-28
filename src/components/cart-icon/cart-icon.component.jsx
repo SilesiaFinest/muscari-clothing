@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
+import { selectCartItemsCount } from "../../redux/cart/cart.selectors";
 
 import { ReactComponent as CartSVG } from "../../assets/cart.svg";
 
@@ -16,9 +17,9 @@ const CartIcon = ({ toggleCartHidden, itemCount }) => (
   </div>
 );
 
-// using .reduce to get quantity of all items in the cart
-const mapStateToProps = ({ cart: { cartItems } }) => ({
-  itemCount: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+// passing whole state to the selector which later takes only needed part of rootReducer(state)
+const mapStateToProps = (state) => ({
+  itemCount: selectCartItemsCount(state),
 });
 
 // dispatching toggle action

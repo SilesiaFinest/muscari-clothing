@@ -2,6 +2,7 @@ React
 React-Router-DOM
 React-Redux
 Redux-Logger
+Reselect
 node-SASS
 Google Firebase
 
