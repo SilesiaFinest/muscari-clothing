@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import { auth } from "../../firebase/firebase.utils";
 
 import { ReactComponent as Logo } from "../../assets/flower.svg";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+import { selectCartHidden } from "../../redux/cart/cart.selectors";
+import { selectCurrentUser } from "../../redux/user/user.selector";
 
 import "./header.styles.scss";
 
@@ -41,14 +44,11 @@ const Header = ({ currentUser, hidden }) => (
   </div>
 );
 
-// mapStateToProps gets needed state(state prop = rootReducer) from rootReducer/xxxxReducer/state
-// using advanced destructuring to access nested values to get arguments e.g.
-// (state.user.currentUser) === ({user: {currentUser}})
-// and in function body we can replace: currentUser: state.user.currentUser with just: currentUser
-
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden,
+// using createStructuredSelector() to avoid repetitions when declaring selectors e.g.
+// (currentUser: selectCurrentUser(state), hidden: selectCartHidden(state)) is replaced by:
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
 });
 
 // connect is a HOF, mSTP gives the component props needed

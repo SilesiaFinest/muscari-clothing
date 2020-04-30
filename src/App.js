@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import "./App.css";
 
@@ -10,8 +11,9 @@ import ShopPage from "./pages/shop/shop.component";
 import SignInAndUpPage from "./pages/sign-in-and-up/sign-in-and-up.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
-// action creator import
+// action creator & selector import
 import { setCurrentUser } from "./redux/user/user.action";
+import { selectCurrentUser } from "./redux/user/user.selector";
 
 class App extends Component {
   // setting new method so it can be called again for Unmount
@@ -72,11 +74,20 @@ class App extends Component {
     );
   }
 }
+// *************************delete this
+// mapStateToProps gets needed state(state prop = rootReducer) from rootReducer/xxxxReducer/state
+// using advanced destructuring to access nested values to get arguments e.g.
+// (state.user.currentUser) === ({user: {currentUser}})
+// and in function body we can replace: currentUser: state.user.currentUser with just: currentUser
 
 //destructure userReducer from state(rootReducer). As a result we receive currentUser prop
 // for this component to use and it is equal to user.currentUser value
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+// *************************end delete
+
+// using createStructuredSelector() if more selectors will be needed in the future,
+// just choose correct selector and it will autamatically pass the state to it
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
 // mapDispatchToProps gets dispatch argument and returns an object with new function that calls dispatch()
