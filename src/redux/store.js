@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware } from "redux";
+// redux-persist user to store function ( to be changed for Firebase DB)
+import { persistStore } from "redux-persist";
 
 // using redux-logger middleware for help in debugging redux code
 import logger from "redux-logger";
@@ -9,6 +11,7 @@ import rootReducer from "./root-reducer";
 const middlewares = [logger];
 
 // createStore gets rootReducer and return value of applyMiddlware so it's scalable in future
-const store = createStore(rootReducer, applyMiddleware(...middlewares));
+export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
-export default store;
+// exporting store and persistor to setup redux-persist
+export const persistor = persistStore(store);
