@@ -29,3 +29,8 @@ export const selectCartHidden = createSelector(
   [selectCart],
   (cart) => cart.hidden
 );
+
+// total sum of cart - selectCartItemsCount multiplied by items prices
+export const selectCartTotal = createSelector([selectCartItems], (cartItems) =>
+  cartItems.reduce((itemSum, item) => itemSum + item.quantity * item.price, 0)
+);
