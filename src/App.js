@@ -53,7 +53,7 @@ class App extends Component {
     this.unsubscribeFromAuth();
   }
 
-  // in 3rd Route we determine if currentUser is signed in. Instead of component='' use render=''
+  // in 4th Route we determine if currentUser is signed in. Instead of component='' use render=''
   // it has a function with ternary operator to Redirect back to homepage if user is already signed
   // if not render <signInAndUpPage>
 
