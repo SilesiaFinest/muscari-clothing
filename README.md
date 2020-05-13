@@ -5,7 +5,8 @@ Redux-Logger
 Reselect
 Redux-Persist (to be changed for Firebase DB)
 node-SASS
-Google Firebase
+Google Firebase and signup Auth
+Stripe online payments
 
 code:
 prettier
