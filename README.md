@@ -12,6 +12,7 @@
 ## General info
 
 This is a example of an online fashion store.
+Live version at: http://mscr-clothing.herokuapp.com/
 
 ## Technologies:
 
