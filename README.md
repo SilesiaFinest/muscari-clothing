@@ -22,6 +22,7 @@ Live version at: http://mscr-clothing.herokuapp.com/
 - Redux-Logger
 - Reselect
 - Redux-Persist (to be changed for Firebase DB)
+- Styled-components ( added for demo only in HomePage, Header and CustomButton)
 - node-SASS
 - Google Firebase and signup Auth
 - Stripe online payments

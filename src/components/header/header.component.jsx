@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -11,37 +10,31 @@ import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 
-import "./header.styles.scss";
+import * as sc from "./header.styles";
 
 // props passed bym mapStateToProps
 const Header = ({ currentUser, hidden }) => (
-  <div className="header">
-    <Link className="logo-container" to="/">
+  <sc.HeaderContainer>
+    <sc.LogoContainer to="/">
       <Logo className="logo" />
-    </Link>
-    <div className="options">
-      <Link className="option" to="/shop">
-        SHOP
-      </Link>
-      <Link className="option" to="/contact">
-        CONTACT
-      </Link>
+    </sc.LogoContainer>
+    <sc.OptionsContainer>
+      <sc.OptionLink to="/shop">SHOP</sc.OptionLink>
+      <sc.OptionLink to="/contact">CONTACT</sc.OptionLink>
       {currentUser ? (
-        <div className="option" onClick={() => auth.signOut()}>
+        <sc.OptionLink as="div" onClick={() => auth.signOut()}>
           SIGN OUT
-        </div>
+        </sc.OptionLink>
       ) : (
-        <Link className="option" to="/signin">
-          SIGN IN
-        </Link>
+        <sc.OptionLink to="/signin">SIGN IN</sc.OptionLink>
       )}
       <CartIcon />
-    </div>
+    </sc.OptionsContainer>
     {
       // selectively rendering CartDropdown
       hidden ? null : <CartDropdown />
     }
-  </div>
+  </sc.HeaderContainer>
 );
 
 // using createStructuredSelector() to avoid repetitions when declaring selectors e.g.
