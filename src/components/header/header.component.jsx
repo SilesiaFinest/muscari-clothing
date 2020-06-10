@@ -12,7 +12,7 @@ import { selectCurrentUser } from "../../redux/user/user.selector";
 
 import * as sc from "./header.styles";
 
-// props passed bym mapStateToProps
+// props passed by mapStateToProps
 const Header = ({ currentUser, hidden }) => (
   <sc.HeaderContainer>
     <sc.LogoContainer to="/">
