@@ -44,7 +44,7 @@ class ShopPage extends Component {
     this.unsunscribeFromSnapshot();
   }
 
-  // inside <Route> instead of component={} using render={} as it takes a function;
+  // inside <Route> instead of component={} using render={} as it takes a function(HOC);
   // it takes paremeters which are passed to the component inside HOC
   render() {
     const { match } = this.props;
