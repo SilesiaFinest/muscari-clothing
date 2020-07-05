@@ -19,9 +19,10 @@ Live version at: http://mscr-clothing.herokuapp.com/
 - React
 - React-Router-DOM
 - React-Redux
-- Redux-Logger
+- Redux-Saga
 - Reselect
 - Redux-Persist (to be changed for Firebase DB)
+- Redux-Logger
 - Styled-components ( added for demo only in HomePage, Header and CustomButton)
 - node-SASS
 - Google Firebase and signup Auth
