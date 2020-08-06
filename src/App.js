@@ -11,10 +11,8 @@ import ShopPage from "./pages/shop/shop.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 
 import SignInAndUpPage from "./pages/sign-in-and-up/sign-in-and-up.component";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 // action creator & selector import
-import { setCurrentUser } from "./redux/user/user.action";
 import { selectCurrentUser } from "./redux/user/user.selector";
 
 class App extends Component {
@@ -24,28 +22,25 @@ class App extends Component {
   // using auth from Google Firebase
   // this is a subscription is always open as long App.js is mounted (no need to fetch for user changes)
   componentDidMount() {
-    //desctruture action from props
-    const { setCurrentUser } = this.props;
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        // userRef returned from createUserProfDoc, returned existing or created a new one
-        const userRef = await createUserProfileDocument(userAuth);
-
-        // we would use below method to check if data has changed at this reference
-        // in this case we subscribe .onSnaphot to get data related to the user from DB
-        // uid is on snapShot itself, user data is on snapShot.data()
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      } else {
-        // if userAuth returned null we set state to null
-        // making app aware if user is signed in or not
-        setCurrentUser(userAuth);
-      }
-    });
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    //   if (userAuth) {
+    //     // userRef returned from createUserProfDoc, returned existing or created a new one
+    //     const userRef = await createUserProfileDocument(userAuth);
+    //     // we would use below method to check if data has changed at this reference
+    //     // in this case we subscribe .onSnaphot to get data related to the user from DB
+    //     // uid is on snapShot itself, user data is on snapShot.data()
+    //     userRef.onSnapshot((snapShot) => {
+    //       setCurrentUser({
+    //         id: snapShot.id,
+    //         ...snapShot.data(),
+    //       });
+    //     });
+    //   } else {
+    //     // if userAuth returned null we set state to null
+    //     // making app aware if user is signed in or not
+    //     setCurrentUser(userAuth);
+    //   }
+    // });
   }
 
   // on component Unmount we are calling on this method again so it will close the subscription
@@ -96,8 +91,6 @@ const mapStateToProps = createStructuredSelector({
 // mapDispatchToProps gets dispatch argument and returns an object with new function that calls dispatch()
 // inside itself which is passing result of an action creator to every reducer. (user) is being passed
 // to action creator ( as .payload = user). Key is a new name for action, value is imported action
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
+//updated to be handled by sagas!
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
