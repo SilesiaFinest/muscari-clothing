@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
 import { signUpStart } from "../../redux/user/user.actions";
 
 import "./sign-up.styles.scss";
@@ -24,6 +23,7 @@ class SignUp extends Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
+    const { signUpStart } = this.props;
     // similar to Google Auth - just time creating the account manually
     const { displayName, email, password, confirmPassword } = this.state;
 
@@ -33,26 +33,7 @@ class SignUp extends Component {
       return;
     }
 
-    // using auth method .createUserWithEmailAndPassword passing the data from state
-    // destructure { user } from the return of this method because object .userAuth is on it's key
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      // wait for this to finish creating new user and reset state to default
-      await createUserProfileDocument(user, { displayName });
-
-      this.setState({
-        displayName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    signUpStart({ displayName, email, password });
   };
 
   handleChange = (event) => {
@@ -112,8 +93,7 @@ class SignUp extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  signUpStart: (displayName, email, password, confirmPassword) =>
-    dispatch(signUpStart({ displayName, email, password, confirmPassword })),
+  signUpStart: (newUserCreds) => dispatch(signUpStart(newUserCreds)),
 });
 
 export default connect(null, mapDispatchToProps)(SignUp);
