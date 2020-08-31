@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -19,41 +19,43 @@ import {
 const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
-class ShopPage extends Component {
-  componentDidMount() {
-    const { fetchCollectionsStart } = this.props;
+const ShopPage = ({
+  fetchCollectionsStart,
+  match,
+  isFetchingCollections,
+  isCollectionLoaded,
+}) => {
+  useEffect(() => {
     fetchCollectionsStart();
-  }
+  }, [fetchCollectionsStart]);
 
   // inside <Route> instead of component={} using render={} as it takes a function(HOC);
   // it takes paremeters which are passed to the component inside HOC
-  render() {
-    const { match, isFetchingCollections, isCollectionLoaded } = this.props;
-    return (
-      <div className="shop-page">
-        <Route
-          exact
-          path={`${match.path}`}
-          render={(props) => (
-            <CollectionsOverviewWithSpinner
-              isLoading={isFetchingCollections}
-              {...props}
-            />
-          )}
-        />
-        <Route
-          path={`${match.path}/:collectionId`}
-          render={(props) => (
-            <CollectionPageWithSpinner
-              isLoading={!isCollectionLoaded}
-              {...props}
-            />
-          )}
-        />
-      </div>
-    );
-  }
-}
+
+  return (
+    <div className="shop-page">
+      <Route
+        exact
+        path={`${match.path}`}
+        render={(props) => (
+          <CollectionsOverviewWithSpinner
+            isLoading={isFetchingCollections}
+            {...props}
+          />
+        )}
+      />
+      <Route
+        path={`${match.path}/:collectionId`}
+        render={(props) => (
+          <CollectionPageWithSpinner
+            isLoading={!isCollectionLoaded}
+            {...props}
+          />
+        )}
+      />
+    </div>
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
   isFetchingCollections: selectIsCollectionFetching,

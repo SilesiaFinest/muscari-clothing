@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -16,46 +16,45 @@ import SignInAndUpPage from "./pages/sign-in-and-up/sign-in-and-up.component";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { checkUserSession } from "./redux/user/user.actions";
 
-class App extends Component {
+const App = ({ checkUserSession, currentUser }) => {
   // setting new method so it can be called again for Unmount
-  unsubscribeFromAuth = null;
+  //unsubscribeFromAuth = null;
 
   // using auth from Google Firebase
   // this is a subscription is always open as long App.js is mounted (no need to fetch for user changes)
-  componentDidMount() {
-    const { checkUserSession } = this.props;
+  useEffect(() => {
     checkUserSession();
-  }
+  }, [checkUserSession]);
 
+  //Hooks added unsucribe gone
   // on component Unmount we are calling on this method again so it will close the subscription
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  // componentWillUnmount() {
+  //   this.unsubscribeFromAuth();
+  // }
 
   // in 4th Route we determine if currentUser is signed in. Instead of component='' use render=''
   // it has a function with ternary operator to Redirect back to homepage if user is already signed
   // if not render <signInAndUpPage>
 
-  render() {
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              this.props.currentUser ? <Redirect to="/" /> : <SignInAndUpPage />
-            }
-          />
-        </Switch>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
+        <Route
+          exact
+          path="/signin"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndUpPage />
+          }
+        />
+      </Switch>
+    </div>
+  );
+};
+
 // *************************delete this
 // mapStateToProps gets needed state(state prop = rootReducer) from rootReducer/xxxxReducer/state
 // using advanced destructuring to access nested values to get arguments e.g.
